@@ -1,24 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import Cadastro from "./components/Cadastro";
+import "./style/css/App.min.css";
+
+export type IDadosUsuario = {
+  nome?: string;
+  senha?: string;
+  email?: string;
+  dataNascimento?: string;
+  cep?: string;
+  rua?: string;
+  numero?: string;
+  bairro?: string;
+  cidade?: string;
+  referencia?: string;
+  sobre?: string;
+};
 
 function App() {
+  const [dados, setDados] = useState<IDadosUsuario>({});
+
+  const atualizarDados = (dadosNovos: IDadosUsuario) => {
+    const novosDados = { ...dados, ...dadosNovos };
+    setDados(novosDados);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App d-flex align-items-center justify-content-center">
+      <Cadastro onAtualizarDados={atualizarDados} dados={dados} />
     </div>
   );
 }

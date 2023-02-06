@@ -1,0 +1,16 @@
+@import "./tokens.scss";
+
+.Cadastro__title {
+  font-size: 2.25rem;
+  line-height: 54px;
+}
+
+.Cadastro__label {
+  font-size: $font-size-label;
+  line-height: 24px;
+  width: 100%;
+
+  &.-output {
+    color: $color-gray;
+  }
+}

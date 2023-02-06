@@ -1,0 +1,21 @@
+// overrides bootstrap
+
+@import "./tokens.scss";
+
+$primary: $color-purple;
+
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+
+.btn {
+  border: none;
+  padding: 15px 54px;
+
+  &.-unfocused {
+    background: $color-gray;
+  }
+}
+
+.form-control {
+  background-color: $color-light-gray;
+  border: none;
+}
