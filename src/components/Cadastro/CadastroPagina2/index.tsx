@@ -9,7 +9,8 @@ import "../../../style/css/Botao.min.css";
 const CadastroPagina2 = (props: ICadastroPagina) => {
   const [sobre, setSobre] = useState(props.dados.sobre || "");
 
-  const handleSubmit = (e: SyntheticEvent, acaoBotao: string) => {
+  const onSubmitHandler = (e: SyntheticEvent, acaoBotao: string) => {
+    e.preventDefault();
     props.onAtualizarDados({ sobre: sobre });
     props.onChangeStep(acaoBotao);
   };
@@ -17,8 +18,7 @@ const CadastroPagina2 = (props: ICadastroPagina) => {
   return (
     <Form
       onSubmit={(e) => {
-        e.preventDefault();
-        handleSubmit(e, "proximo");
+        onSubmitHandler(e, "proximo");
       }}
     >
       <TextArea
@@ -37,8 +37,7 @@ const CadastroPagina2 = (props: ICadastroPagina) => {
           text="Anterior"
           type="button"
           onClick={(e) => {
-            e.preventDefault();
-            handleSubmit(e, "anterior");
+            onSubmitHandler(e, "anterior");
           }}
         />
         <Botao text="Próximo passo" type="submit" />

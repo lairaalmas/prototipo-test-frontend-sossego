@@ -1,27 +1,101 @@
-import { SyntheticEvent, useState } from "react";
-import { ICadastroPagina } from "../../Step";
+import { SyntheticEvent } from "react";
+import useInput from "../../../customHooks/useInput";
 import Form from "../../Form";
 import Input from "../../Input";
 import Botao from "../../Botao";
+import { ICadastroPagina } from "../../Step";
 
 import "../../../style/css/Botao.min.css";
+import "../../../style/css/Cadastro.min.css";
 
 const CadastroPagina0 = (props: ICadastroPagina) => {
-  const [dados, setDados] = useState({
-    nome: props.dados.nome || "",
-    senha: props.dados.senha || "",
-    senhaConf: "",
-    email: props.dados.email || "",
-    nascimento: props.dados.dataNascimento || "",
-  });
+  const validarEmail = (email: string) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
 
-  const handleSubmit = (e: SyntheticEvent, acaoBotao: string) => {
+  const {
+    value: nome,
+    isValidFormat: nomeIsValidFormat,
+    displayErrorMsg: nomeDisplayErrorMsg,
+    onChangeHandler: nomeOnChangeHandler,
+    onBlurHandler: nomeOnBlurHandler,
+    //resetField: nomeResetField,
+  } = useInput(props.dados.nome, (value: string) => value.trim() !== "");
+
+  const {
+    value: senha,
+    isValidFormat: senhaIsValidFormat,
+    displayErrorMsg: senhaDisplayErrorMsg,
+    onChangeHandler: senhaOnChangeHandler,
+    onBlurHandler: senhaOnBlurHandler,
+    //resetField: senhaResetField,
+  } = useInput(props.dados.senha, (value: string) => value.trim() !== "");
+
+  const {
+    value: senhaConf,
+    isValidFormat: senhaConfIsValidFormat,
+    displayErrorMsg: senhaConfDisplayErrorMsg,
+    onChangeHandler: senhaConfOnChangeHandler,
+    onBlurHandler: senhaConfOnBlurHandler,
+    //resetField: senhaConfResetField,
+  } = useInput(
+    props.dados.senha,
+    (value: string) => value.trim() !== "" && value === senha
+  );
+
+  const {
+    value: email,
+    isValidFormat: emailIsValidFormat,
+    displayErrorMsg: emailDisplayErrorMsg,
+    onChangeHandler: emailOnChangeHandler,
+    onBlurHandler: emailOnBlurHandler,
+    //resetField: emailResetField,
+  } = useInput(
+    props.dados.email,
+    (value: string) => value.trim() !== "" && validarEmail(value)
+  );
+
+  const {
+    value: nascimento,
+    isValidFormat: nascimentoIsValidFormat,
+    displayErrorMsg: nascimentoDisplayErrorMsg,
+    onChangeHandler: nascimentoOnChangeHandler,
+    onBlurHandler: nascimentoOnBlurHandler,
+    //resetField: nascimentoResetField,
+  } = useInput(
+    props.dados.dataNascimento,
+    (value: string) => value.trim() !== ""
+  );
+
+  const onSubmitHandler = (e: SyntheticEvent, acaoBotao: string) => {
+    e.preventDefault();
+
+    if (
+      !nomeIsValidFormat ||
+      !senhaIsValidFormat ||
+      !senhaConfIsValidFormat ||
+      !emailIsValidFormat ||
+      !nascimentoIsValidFormat
+    ) {
+      nomeOnBlurHandler();
+      senhaOnBlurHandler();
+      senhaConfOnBlurHandler();
+      emailOnBlurHandler();
+      nascimentoOnBlurHandler();
+      return;
+    }
+
     const novosDados = {
-      nome: dados.nome,
-      senha: dados.senha,
-      email: dados.email,
-      dataNascimento: dados.nascimento,
+      nome: nome,
+      senha: senha,
+      email: email,
+      dataNascimento: nascimento,
     };
+
     props.onAtualizarDados(novosDados);
     props.onChangeStep(acaoBotao);
   };
@@ -29,8 +103,7 @@ const CadastroPagina0 = (props: ICadastroPagina) => {
   return (
     <Form
       onSubmit={(e) => {
-        e.preventDefault();
-        handleSubmit(e, "proximo");
+        onSubmitHandler(e, "proximo");
       }}
     >
       <div className="mb-4">
@@ -38,11 +111,13 @@ const CadastroPagina0 = (props: ICadastroPagina) => {
           type="text"
           label="Nome"
           id="form-nome"
-          value={dados.nome}
-          onChange={(e) => {
-            setDados({ ...dados, nome: e.target.value });
-          }}
+          value={nome}
+          onChange={(event) => nomeOnChangeHandler(event)}
+          onBlur={nomeOnBlurHandler}
         />
+        {nomeDisplayErrorMsg && (
+          <div className="-invalid">Por favor digite um nome</div>
+        )}
       </div>
 
       <div className="row">
@@ -51,11 +126,13 @@ const CadastroPagina0 = (props: ICadastroPagina) => {
             type="password"
             label="Senha"
             id="form-senha"
-            value={dados.senha}
-            onChange={(e) => {
-              setDados({ ...dados, senha: e.target.value });
-            }}
+            value={senha}
+            onChange={(event) => senhaOnChangeHandler(event)}
+            onBlur={senhaOnBlurHandler}
           />
+          {senhaDisplayErrorMsg && (
+            <div className="-invalid">Por favor digite uma senha</div>
+          )}
         </div>
 
         <div className="col-sm-12 col-lg-6 mb-4">
@@ -63,36 +140,43 @@ const CadastroPagina0 = (props: ICadastroPagina) => {
             type="password"
             label="Confirmar Senha"
             id="form-senha-conf"
-            value={dados.senhaConf}
-            onChange={(e) => {
-              setDados({ ...dados, senhaConf: e.target.value });
-            }}
+            value={senhaConf}
+            onChange={(event) => senhaConfOnChangeHandler(event)}
+            onBlur={senhaConfOnBlurHandler}
           />
+          {senhaConfDisplayErrorMsg && (
+            <div className="-invalid">Por favor digite novamente sua senha</div>
+          )}
         </div>
       </div>
 
       <div className="row mb-4">
-        <div className="col-sm-12 col-lg-6 mb-4">
+        <div className="form-group col-sm-12 col-lg-6 mb-4">
           <Input
             type="email"
             label="Email"
             id="form-email"
-            value={dados.email}
-            onChange={(e) => {
-              setDados({ ...dados, email: e.target.value });
-            }}
+            value={email}
+            onChange={(event) => emailOnChangeHandler(event)}
+            onBlur={emailOnBlurHandler}
           />
+          {emailDisplayErrorMsg && (
+            <div className="-invalid">Por favor digite um email válido</div>
+          )}
         </div>
+
         <div className="col-sm-12 col-lg-6 mb-4">
           <Input
             type="date"
             label="Data de nascimento"
             id="form-nascimento"
-            value={dados.nascimento}
-            onChange={(e) => {
-              setDados({ ...dados, nascimento: e.target.value });
-            }}
+            value={nascimento}
+            onChange={(event) => nascimentoOnChangeHandler(event)}
+            onBlur={nascimentoOnBlurHandler}
           />
+          {nascimentoDisplayErrorMsg && (
+            <div className="-invalid">Por favor digite uma data</div>
+          )}
         </div>
       </div>
 
