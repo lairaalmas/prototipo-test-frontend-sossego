@@ -2,8 +2,6 @@
 
 Tela de cadastro de usuário desenvolvida para o processo de selecao da Sossego.
 
-**Você pode visualizar a tela de cadastro [aqui](https://lairaalmas.github.io/prototipo-test-frontend-sossego)**
-
 ## Autor
 
 [Laira Almas](https://github.com/lairaalmas)
