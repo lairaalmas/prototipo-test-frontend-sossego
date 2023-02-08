@@ -23,7 +23,6 @@ const CadastroPagina0 = (props: ICadastroPagina) => {
     displayErrorMsg: nomeDisplayErrorMsg,
     onChangeHandler: nomeOnChangeHandler,
     onBlurHandler: nomeOnBlurHandler,
-    //resetField: nomeResetField,
   } = useInput(props.dados.nome, (value: string) => value.trim() !== "");
 
   const {
@@ -32,7 +31,6 @@ const CadastroPagina0 = (props: ICadastroPagina) => {
     displayErrorMsg: senhaDisplayErrorMsg,
     onChangeHandler: senhaOnChangeHandler,
     onBlurHandler: senhaOnBlurHandler,
-    //resetField: senhaResetField,
   } = useInput(props.dados.senha, (value: string) => value.trim() !== "");
 
   const {
@@ -41,7 +39,6 @@ const CadastroPagina0 = (props: ICadastroPagina) => {
     displayErrorMsg: senhaConfDisplayErrorMsg,
     onChangeHandler: senhaConfOnChangeHandler,
     onBlurHandler: senhaConfOnBlurHandler,
-    //resetField: senhaConfResetField,
   } = useInput(
     props.dados.senha,
     (value: string) => value.trim() !== "" && value === senha
@@ -53,7 +50,6 @@ const CadastroPagina0 = (props: ICadastroPagina) => {
     displayErrorMsg: emailDisplayErrorMsg,
     onChangeHandler: emailOnChangeHandler,
     onBlurHandler: emailOnBlurHandler,
-    //resetField: emailResetField,
   } = useInput(
     props.dados.email,
     (value: string) => value.trim() !== "" && validarEmail(value)
@@ -65,7 +61,6 @@ const CadastroPagina0 = (props: ICadastroPagina) => {
     displayErrorMsg: nascimentoDisplayErrorMsg,
     onChangeHandler: nascimentoOnChangeHandler,
     onBlurHandler: nascimentoOnBlurHandler,
-    //resetField: nascimentoResetField,
   } = useInput(
     props.dados.dataNascimento,
     (value: string) => value.trim() !== ""

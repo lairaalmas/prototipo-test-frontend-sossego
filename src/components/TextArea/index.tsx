@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React from "react";
 
 import "../../style/css/Form.min.css";
 
@@ -7,7 +7,7 @@ interface ITextArea extends React.InputHTMLAttributes<HTMLTextAreaElement> {
   label: string;
 }
 
-const TextArea = forwardRef<HTMLTextAreaElement, ITextArea>((props, ref) => {
+const TextArea = (props: ITextArea) => {
   return (
     <div className="form-group">
       <label htmlFor={props.id}>{props.label}</label>
@@ -15,10 +15,9 @@ const TextArea = forwardRef<HTMLTextAreaElement, ITextArea>((props, ref) => {
         {...props}
         className={`form-control mt-2 Form__textArea ${props.className}`}
         id={props.id}
-        ref={ref}
       />
     </div>
   );
-});
+};
 
 export default TextArea;

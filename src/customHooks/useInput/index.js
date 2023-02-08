@@ -15,18 +15,12 @@ const useInput = (initialValue = "", checkFormat) => {
     setLostFocus(true);
   };
 
-  const resetField = () => {
-    setValue("");
-    setLostFocus(false);
-  };
-
   return {
     value,
     isValidFormat,
     displayErrorMsg,
     onChangeHandler,
     onBlurHandler,
-    resetField,
   };
 };
 

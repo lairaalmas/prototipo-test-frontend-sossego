@@ -1,5 +1,3 @@
-import { forwardRef, useState } from "react";
-
 import "../../style/css/Cadastro.min.css";
 import "../../style/css/Form.min.css";
 
@@ -9,7 +7,7 @@ interface IInput extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
 }
 
-const Input = forwardRef<HTMLInputElement, IInput>((props, ref) => {
+const Input = (props: IInput) => {
   return (
     <>
       <label htmlFor={props.id} className="Cadastro__label">
@@ -20,10 +18,9 @@ const Input = forwardRef<HTMLInputElement, IInput>((props, ref) => {
         type={props.type}
         className={`form-control ${props.className}`}
         id={props.id}
-        ref={ref}
       />
     </>
   );
-});
+};
 
 export default Input;

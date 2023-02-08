@@ -19,7 +19,6 @@ const CadastroPagina1 = (props: ICadastroPagina) => {
     displayErrorMsg: cepDisplayErrorMsg,
     onChangeHandler: cepOnChangeHandler,
     onBlurHandler: cepOnBlurHandler,
-    //resetField: cepResetField,
   } = useInput(
     props.dados.cep,
     (value: string) => value.trim() !== "" && validarCep(value)
@@ -31,7 +30,6 @@ const CadastroPagina1 = (props: ICadastroPagina) => {
     displayErrorMsg: cidadeDisplayErrorMsg,
     onChangeHandler: cidadeOnChangeHandler,
     onBlurHandler: cidadeOnBlurHandler,
-    //resetField: cidadeResetField,
   } = useInput(props.dados.cidade, (value: string) => value.trim() !== "");
 
   const {
@@ -40,7 +38,6 @@ const CadastroPagina1 = (props: ICadastroPagina) => {
     displayErrorMsg: bairroDisplayErrorMsg,
     onChangeHandler: bairroOnChangeHandler,
     onBlurHandler: bairroOnBlurHandler,
-    //resetField: bairroResetField,
   } = useInput(props.dados.bairro, (value: string) => value.trim() !== "");
 
   const {
@@ -49,7 +46,6 @@ const CadastroPagina1 = (props: ICadastroPagina) => {
     displayErrorMsg: ruaDisplayErrorMsg,
     onChangeHandler: ruaOnChangeHandler,
     onBlurHandler: ruaOnBlurHandler,
-    //resetField: ruaResetField,
   } = useInput(props.dados.rua, (value: string) => value.trim() !== "");
 
   const {
@@ -58,7 +54,6 @@ const CadastroPagina1 = (props: ICadastroPagina) => {
     displayErrorMsg: numeroDisplayErrorMsg,
     onChangeHandler: numeroOnChangeHandler,
     onBlurHandler: numeroOnBlurHandler,
-    //resetField: numeroResetField,
   } = useInput(props.dados.numero, (value: string) => value.trim() !== "");
 
   const {
@@ -67,7 +62,6 @@ const CadastroPagina1 = (props: ICadastroPagina) => {
     displayErrorMsg: referenciaDisplayErrorMsg,
     onChangeHandler: referenciaOnChangeHandler,
     onBlurHandler: referenciaOnBlurHandler,
-    //resetField: referenciaResetField,
   } = useInput(props.dados.referencia, (value: string) => value.trim() !== "");
 
   const onSubmitHandler = (e: SyntheticEvent, acaoBotao: string) => {
